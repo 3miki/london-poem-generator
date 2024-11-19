@@ -3,10 +3,22 @@ import chatCompletion from './services/openai.js';
 
 const app = express();
 
+app.use(express.static('public'));
+
+// app.get(
+//     '/', 
+//     (req, res) => {
+//         res.send('Hello from my server!');
+//     }
+// );
+
 app.get(
-    '/', 
-    (req, res) => {
-        res.send('Hello from my server!');
+    '/get-poem',
+    async (req, res) => {
+        const response = await chatCompletion(
+            "Write a short, impressive poem about London, as if you are in cold, groomy city. Just four lines!"
+        );
+        res.send({ poem: response });
     }
 );
 
